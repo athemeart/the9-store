@@ -6,16 +6,17 @@ The9 Store – Free WooCommerce Theme for Modern Storefronts
 
 <img src="https://raw.githubusercontent.com/athemeart/the9-store/refs/heads/main/screenshot.png" alt="WordPress Storefront theme" />
 
-The9 Store is a free, high-performance WooCommerce theme designed for seamless online shopping experiences. Whether you operate a fashion boutique, gadget shop, furniture store, or beauty eMart, this theme delivers a modern, responsive, and SEO-optimized storefront.
-🚀 Key Features:
+The9 Store is a free, high-performance WooCommerce theme designed for seamless online shopping experiences. Whether you operate a fashion boutique, gadget shop, furniture store, or beauty eMart, this theme delivers a modern, responsive, and SEO-optimized storefront.<br/><br/>
 
-✅ Versatile Layouts – Multiple shop and product display options for a dynamic shopping experience.
-✅ Advanced Product Showcase – Tabbed product carousels, Woo category layouts, and Ajax-powered search.
-✅ Enhanced User Experience (UX/UI) – Mobile-first design ensuring a smooth mCommerce journey.
-✅ Page Builder Compatibility – Works seamlessly with Elementor, Divi, Visual Composer, and other builders.
-✅ Powerful eCommerce Tools – Product filters, secure payment gateways, inventory management, and sales reports.
-✅ Optimized for Speed & SEO – Faster load times and built-in SEO features for better rankings.
-🎯 Ideal for:
+🚀 Key Features:<br/>
+
+✅ Versatile Layouts – Multiple shop and product display options for a dynamic shopping experience.<br/>
+✅ Advanced Product Showcase – Tabbed product carousels, Woo category layouts, and Ajax-powered search.<br/>
+✅ Enhanced User Experience (UX/UI) – Mobile-first design ensuring a smooth mCommerce journey.<br/>
+✅ Page Builder Compatibility – Works seamlessly with Elementor, Divi, Visual Composer, and other builders.<br/>
+✅ Powerful eCommerce Tools – Product filters, secure payment gateways, inventory management, and sales reports.<br/>
+✅ Optimized for Speed & SEO – Faster load times and built-in SEO features for better rankings.<br/><br/>
+🎯 Ideal for:<br/>
 
 Perfect for a range of industries, including electronics, fashion, food delivery, sports gear, real estate, gaming, bookstores, pharmacies, gardening, aviation, and more. Whether you're selling digital or physical products, The9 Store adapts to your business needs.
 
