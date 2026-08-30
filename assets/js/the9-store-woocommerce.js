@@ -20,38 +20,6 @@
 			});
 
 		}
-		// When variable price is selected by default
-                setTimeout( function(){
-                    if( 0 < $('input.variation_id').val() && null != $('input.variation_id').val() ){
-                        if($('.status-product').length){
-                          $('.shopstore_variable_product_status').find('.status-product').remove();	
-						}
-
-                        $('.shopstore_variable_price').html($('div.woocommerce-variation-price > span.price').html());
-						$('.shopstore_variable_price').next().append($('div.woocommerce-variation-availability').html());
-                       
-                    }
-                }, 300 );
-
-                // On live variation selection
-                $('.variations select').blur( function(){
-                    if( 0 < $('input.variation_id').val() && null != $('input.variation_id').val() ){
-                        if($('.status-product') || $('.status-product p.stock') ){
-							$('.shopstore_variable_product_status').find('.status-product').remove();	
-						}
-                            
-                        $('.shopstore_variable_price').html($('div.woocommerce-variation-price > span.price').html());
-						$('.shopstore_variable_price').next().append($('div.woocommerce-variation-availability').html());
-                        
-                    } else {
-                        $('.shopstore_variable_price').html($('div.hidden-variable-price').html());
-                        if($('.status-product').length){
-                            $('.shopstore_variable_product_status').find('.status-product').remove();	
-						}
-                       
-                    }
-                });
-	 
 	 /* ============== Quantity buttons ============== */
 	
 		// Target quantity inputs on product pages

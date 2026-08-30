@@ -36,10 +36,8 @@ add_filter( 'woocommerce_product_additional_information_heading', '__return_fals
 
 
 remove_action( 'woocommerce_archive_description','woocommerce_taxonomy_archive_description',10 );
-remove_action( 'woocommerce_archive_description','woocommerce_taxonomy_archive_description',10 );	
 
 add_action( 'the9_store_archive_description','woocommerce_taxonomy_archive_description',10 );
-add_action( 'the9_store_archive_description','woocommerce_taxonomy_archive_description',10 );	
 
 /**
  * WooCommerce setup function.
@@ -96,7 +94,10 @@ function the9_store_woocommerce_scripts() {
 
 	wp_add_inline_style( 'the9-store-woocommerce-style', $inline_font );
 
-	wp_enqueue_script( 'the9-store-woocommerce', get_theme_file_uri( '/assets/js/the9-store-woocommerce.js' ) , 0, '1.1', true );
+	if ( is_woocommerce() ) {
+		wp_enqueue_script( 'customselect', get_theme_file_uri( '/vendors/customselect.js' ), array( 'jquery' ), '1.0.0', true );
+		wp_enqueue_script( 'the9-store-woocommerce', get_theme_file_uri( '/assets/js/the9-store-woocommerce.js' ), array( 'jquery', 'customselect' ), '1.1', true );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'the9_store_woocommerce_scripts' );
 
@@ -301,6 +302,19 @@ if ( ! function_exists( 'the9_store_toolbar_start' ) ) {
 /**
 * Add Custom Result Counter.
 */
+function the9_store_products_per_page_choice() {
+	$default = max( 1, absint( get_theme_mod( 'the9_store_posts_per_page', 12 ) ) );
+
+	if ( ! isset( $_GET['products-per-page'] ) || ! is_scalar( $_GET['products-per-page'] ) ) {
+		return $default;
+	}
+
+	$requested = sanitize_text_field( wp_unslash( $_GET['products-per-page'] ) );
+	$allowed   = array( (string) $default, (string) ( $default * 2 ), 'all' );
+
+	return in_array( $requested, $allowed, true ) ? $requested : $default;
+}
+
 function the9_store_result_count() {
 	get_template_part( 'woocommerce/result-count' );
 }
@@ -326,15 +340,10 @@ if ( ! function_exists( 'the9_store_loop_shop_per_page' ) ) :
 	 * @since 1.0.0
 	 */
 	function the9_store_loop_shop_per_page() {
-		
-		$posts_per_page = ( isset( $_GET['products-per-page'] ) ) ? sanitize_text_field( wp_unslash( $_GET['products-per-page'] ) ) : get_theme_mod( 'shopstore_woo_shop_posts_per_page',12 );
+			$posts_per_page = the9_store_products_per_page_choice();
 
-		if ( $posts_per_page == 'all' ) {
-			$posts_per_page = wp_count_posts( 'product' )->publish;
+			return 'all' === $posts_per_page ? -1 : absint( $posts_per_page );
 		}
-		
-		return $posts_per_page;
-	}
 	add_filter( 'loop_shop_per_page', 'the9_store_loop_shop_per_page', 20 );
 endif;
 
