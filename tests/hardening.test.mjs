@@ -83,3 +83,33 @@ test('page-specific scripts are not loaded globally', async () => {
   assert.match(commerceAssets, /if \( is_woocommerce\(\) \)/);
   assert.match(commerceAssets, /array\( 'jquery', 'customselect' \)/);
 });
+
+test('theme owns footer data without hard-coded store facts', async () => {
+  const data = await read('inc/shams-store-data.php');
+  const footer = await read('inc/class/class-footer.php');
+
+  assert.match(data, /get_option\( 'shams_global_shell_options', array\(\) \)/);
+  assert.match(data, /set_theme_mod\( \$theme_key, \$value \)/);
+  assert.doesNotMatch(data, /Sherif Street|Omar Ibn|022390|010233/);
+  assert.match(footer, /the9_store_footer_branches\(\)/);
+  assert.match(footer, /has_nav_menu\( 'footer-shop' \)/);
+  assert.match(footer, /has_nav_menu\( 'footer-information' \)/);
+});
+
+test('header and footer render only assigned WordPress menus', async () => {
+  const setup = await read('inc/theme-core.php');
+  const header = await read('inc/class/class-header.php');
+
+  assert.match(setup, /'footer-shop'/);
+  assert.match(setup, /'footer-information'/);
+  assert.doesNotMatch(header, /fallback_2/);
+  assert.match(header, /'fallback_cb'\s*=> false/);
+});
+
+test('custom fork does not register the upstream Pro upsell', async () => {
+  const customizer = await read('inc/customizer/customizer.php');
+  const bootstrap = await read('functions.php');
+
+  assert.doesNotMatch(customizer, /Upgrade to The9 Store Pro|Go PRO/);
+  assert.doesNotMatch(bootstrap, /inc\/about-themes\.php/);
+});

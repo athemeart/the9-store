@@ -47,6 +47,7 @@ class the9_store_Footer_Layout{
 	* @return $html
 	*/
 	function site_footer_widgets(){
+		$this->site_footer_content();
 		if ( is_active_sidebar( 'footer-1' ) ) { ?>
          <div class="footer_widget_wrap">
          <div class="container">
@@ -55,7 +56,63 @@ class the9_store_Footer_Layout{
             </div>
          </div>  
          </div>
-        <?php }
+		<?php }
+	}
+
+	/** Render WordPress-owned footer data and assigned menus. */
+	private function site_footer_content() {
+		$about       = get_theme_mod( 'footer_about', '' );
+		$branches    = function_exists( 'the9_store_footer_branches' ) ? the9_store_footer_branches() : array();
+		$has_shop    = has_nav_menu( 'footer-shop' );
+		$has_info    = has_nav_menu( 'footer-information' );
+		$has_brand   = has_custom_logo() || $about;
+
+		if ( ! $has_brand && ! $has_shop && ! $has_info && ! $branches ) {
+			return;
+		}
+		?>
+		<div class="the9-store-footer-main">
+			<div class="container">
+				<div class="the9-store-footer-content">
+					<?php if ( $has_brand ) : ?>
+						<section class="the9-store-footer-column the9-store-footer-brand" aria-label="<?php esc_attr_e( 'Store information', 'the9-store' ); ?>">
+							<?php if ( has_custom_logo() ) { the_custom_logo(); } ?>
+							<?php if ( $about ) : ?><p><?php echo nl2br( esc_html( $about ) ); ?></p><?php endif; ?>
+						</section>
+					<?php endif; ?>
+
+					<?php if ( $has_shop ) : ?>
+						<section class="the9-store-footer-column">
+							<h2><?php esc_html_e( 'Shop', 'the9-store' ); ?></h2>
+							<?php wp_nav_menu( array( 'theme_location' => 'footer-shop', 'container' => false, 'depth' => 2, 'fallback_cb' => false ) ); ?>
+						</section>
+					<?php endif; ?>
+
+					<?php if ( $has_info ) : ?>
+						<section class="the9-store-footer-column">
+							<h2><?php esc_html_e( 'Information', 'the9-store' ); ?></h2>
+							<?php wp_nav_menu( array( 'theme_location' => 'footer-information', 'container' => false, 'depth' => 2, 'fallback_cb' => false ) ); ?>
+						</section>
+					<?php endif; ?>
+
+					<?php if ( $branches ) : ?>
+						<section class="the9-store-footer-column">
+							<h2><?php esc_html_e( 'Our stores', 'the9-store' ); ?></h2>
+							<?php foreach ( $branches as $branch ) : ?>
+								<div class="the9-store-footer-branch">
+									<?php if ( $branch['name'] ) : ?><strong><?php echo esc_html( $branch['name'] ); ?></strong><?php endif; ?>
+									<?php if ( $branch['address'] ) : ?><address><?php echo nl2br( esc_html( $branch['address'] ) ); ?></address><?php endif; ?>
+									<?php if ( $branch['phones'] ) : ?><div class="the9-store-footer-phones"><?php foreach ( $branch['phones'] as $phone ) : $phone_url = the9_store_phone_url( $phone ); ?><a href="<?php echo esc_url( $phone_url ); ?>"><?php echo esc_html( $phone ); ?></a><?php endforeach; ?></div><?php endif; ?>
+									<?php if ( $branch['hours'] ) : ?><p class="the9-store-footer-hours"><?php echo nl2br( esc_html( $branch['hours'] ) ); ?></p><?php endif; ?>
+									<?php if ( $branch['map'] ) : ?><a class="the9-store-footer-map" href="<?php echo esc_url( $branch['map'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'View map', 'the9-store' ); ?></a><?php endif; ?>
+								</div>
+							<?php endforeach; ?>
+						</section>
+					<?php endif; ?>
+				</div>
+			</div>
+		</div>
+		<?php
 	}
 	
 	
@@ -78,10 +135,7 @@ class the9_store_Footer_Layout{
 			}
 			$html  .= apply_filters( 'the9_store_footer_copywrite_filter', $text );
 				
-			/* translators: 1: developer website, 2: WordPress url  */
-			$html  .= '<small class="dev_info">'.sprintf( esc_html__( ' %1$s theme by aThemeArt - Proudly powered by %2$s .', 'the9-store' ), '<a href="'. esc_url( 'https://athemeart.com/' ) .'" target="_blank">'.esc_html_x( 'The9 Store', 'credit - theme', 'the9-store' ).'</a>',  '<a  href="'.esc_url( __( 'https://wordpress.org', 'the9-store' ) ).'" target="_blank" rel="nofollow">'.esc_html_x( 'WordPress', 'credit to cms', 'the9-store' ).'</a>' ).'</small>';
-			
-			$html .= '</div>';
+				$html .= '</div>';
 			$html .= '<div class="col-6">';
 
 			$html .= '<ul class="social-links text-end d-flex justify-content-end align-items-center">';

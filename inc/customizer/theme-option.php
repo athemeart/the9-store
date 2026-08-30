@@ -38,14 +38,30 @@ $wp_customize->add_setting( '__dialogue',
 		'sanitize_callback' => 'sanitize_text_field',
 	)
 );
-$wp_customize->add_control( '__dialogue',
+	$wp_customize->add_control( '__dialogue',
 	array(
 		'label'    => esc_html__( 'Dialogue', 'the9-store' ),
 		'section'  => 'topbar_section_settings',
 		'type'     => 'text',
 		
 	)
-);
+	);
+
+	$wp_customize->add_setting( 'header_contact_url',
+		array(
+			'default'           => '',
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+	$wp_customize->add_control( 'header_contact_url',
+		array(
+			'label'       => esc_html__( 'Top bar contact link', 'the9-store' ),
+			'description' => esc_html__( 'Optional URL for the top bar text, for example a telephone or contact-page link.', 'the9-store' ),
+			'section'     => 'topbar_section_settings',
+			'type'        => 'url',
+		)
+	);
 
 /*Social Profile*/
 $wp_customize->add_setting( '__fb_pro_link',
@@ -322,12 +338,45 @@ $wp_customize->add_section( 'page_option_section_settings',
 		// Footer Section.
 		$wp_customize->add_section( 'footer_section',
 			array(
-			'title'      => esc_html__( 'Copyright', 'the9-store' ),
+				'title'      => esc_html__( 'Footer', 'the9-store' ),
 			'priority'   => 130,
 			'capability' => 'edit_theme_options',
 			'panel'      => 'theme_option_panel',
 			)
-		);
+			);
+
+			$footer_fields = array(
+				'footer_about'            => array( esc_html__( 'Store description', 'the9-store' ), 'textarea', 'sanitize_textarea_field' ),
+				'footer_branch_1_name'    => array( esc_html__( 'First branch name', 'the9-store' ), 'text', 'sanitize_text_field' ),
+				'footer_branch_1_address' => array( esc_html__( 'First branch address', 'the9-store' ), 'textarea', 'sanitize_textarea_field' ),
+				'footer_branch_1_phones'  => array( esc_html__( 'First branch phone numbers', 'the9-store' ), 'textarea', 'sanitize_textarea_field' ),
+				'footer_branch_1_hours'   => array( esc_html__( 'First branch opening hours', 'the9-store' ), 'textarea', 'sanitize_textarea_field' ),
+				'footer_branch_1_map'     => array( esc_html__( 'First branch map link', 'the9-store' ), 'url', 'esc_url_raw' ),
+				'footer_branch_2_name'    => array( esc_html__( 'Second branch name', 'the9-store' ), 'text', 'sanitize_text_field' ),
+				'footer_branch_2_address' => array( esc_html__( 'Second branch address', 'the9-store' ), 'textarea', 'sanitize_textarea_field' ),
+				'footer_branch_2_phones'  => array( esc_html__( 'Second branch phone numbers', 'the9-store' ), 'textarea', 'sanitize_textarea_field' ),
+				'footer_branch_2_hours'   => array( esc_html__( 'Second branch opening hours', 'the9-store' ), 'textarea', 'sanitize_textarea_field' ),
+				'footer_branch_2_map'     => array( esc_html__( 'Second branch map link', 'the9-store' ), 'url', 'esc_url_raw' ),
+			);
+
+			foreach ( $footer_fields as $setting_id => $field ) {
+				$wp_customize->add_setting(
+					$setting_id,
+					array(
+						'default'           => '',
+						'capability'        => 'edit_theme_options',
+						'sanitize_callback' => $field[2],
+					)
+				);
+				$wp_customize->add_control(
+					$setting_id,
+					array(
+						'label'   => $field[0],
+						'section' => 'footer_section',
+						'type'    => $field[1],
+					)
+				);
+			}
 		
 		// Setting copyright_text.
 		$wp_customize->add_setting( 'copyright_text',
@@ -355,4 +404,3 @@ $wp_customize->add_section( 'page_option_section_settings',
 	
 
 
-		
