@@ -105,10 +105,12 @@ class The9_Store_Header_Layout{
 							dynamic_sidebar( 'logo-side' );
 					}else{
 			          
-			            if( class_exists('APSW_Product_Search_Finale_Class') ){
-			           		 do_action('apsw_search_bar_preview');
-			            }else{
-			            	get_search_form();
+						if( class_exists('APSW_Product_Search_Finale_Class') ){
+							 do_action('apsw_search_bar_preview');
+						}elseif ( function_exists( 'get_product_search_form' ) ) {
+							get_product_search_form();
+						}else{
+							get_search_form();
 			            }
            
 					}
@@ -118,11 +120,10 @@ class The9_Store_Header_Layout{
 					<li>
 
 					<?php $account_url = wc_get_page_permalink( 'myaccount' ); ?>
-					<?php if ( is_user_logged_in() ) { ?>
-					<a class="gs-tooltip-act" href="<?php echo esc_url( $account_url ); ?>"><i class="icofont-user-alt-4"></i></a><span class="icon_txt"><span class="label"><?php echo esc_html__('My','the9-store');?></span> <span class="class2"><?php echo esc_html__('Account','the9-store');?></span></span>
-					<?php } else { ?>
-					<a class="gs-tooltip-act" href="<?php echo esc_url( $account_url ); ?>"><i class="icofont-user-alt-4"></i></a><span class="icon_txt"><span class="label"><?php echo esc_html__('Login','the9-store');?></span> <span class="class2"><?php echo esc_html__('Reg.','the9-store');?></span></span>
-				<?php } ?>
+					<a class="gs-tooltip-act the9-store-account-link" href="<?php echo esc_url( $account_url ); ?>">
+						<i class="icofont-user-alt-4" aria-hidden="true"></i>
+						<span class="icon_txt"><span class="label"><?php echo is_user_logged_in() ? esc_html__( 'My', 'the9-store' ) : esc_html__( 'Login', 'the9-store' ); ?></span> <span class="class2"><?php echo is_user_logged_in() ? esc_html__( 'Account', 'the9-store' ) : esc_html__( 'Account', 'the9-store' ); ?></span></span>
+					</a>
 				<?php if ( is_user_logged_in() ) { ?>
 				<ul class="joyas-myaccount-endpoint">
 					<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
@@ -189,6 +190,7 @@ class The9_Store_Header_Layout{
 		<nav id="navbar" class="navbar-fill">
 			<div class="container d-flex align-items-center">
 					<button class="the9-store-responsive-navbar" type="button" aria-controls="aside-nav-wrapper" aria-expanded="false" aria-label="<?php esc_attr_e( 'Open menu', 'the9-store' ); ?>"><i class="bi bi-list" aria-hidden="true"></i></button>
+					<?php $this->product_category_navigation(); ?>
 					<div id="aside-nav-wrapper" class="nav-wrap flex-grow-1">
 					<button class="the9-store-navbar-close" type="button" aria-label="<?php esc_attr_e( 'Close menu', 'the9-store' ); ?>"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
 				<?php
@@ -209,6 +211,36 @@ class The9_Store_Header_Layout{
 		</nav>
         <?php	
 		
+	}
+
+	/** Render a demo-style category control from real, non-empty WooCommerce categories. */
+	private function product_category_navigation() {
+		if ( ! taxonomy_exists( 'product_cat' ) ) {
+			return;
+		}
+		$categories = get_terms(
+			array(
+				'taxonomy'   => 'product_cat',
+				'hide_empty' => true,
+				'parent'     => 0,
+				'number'     => 12,
+				'orderby'    => 'menu_order',
+				'order'      => 'ASC',
+			)
+		);
+		if ( is_wp_error( $categories ) || ! $categories ) {
+			return;
+		}
+		?>
+		<details class="the9-store-category-nav">
+			<summary><i class="bi bi-grid" aria-hidden="true"></i><span><?php esc_html_e( 'All Categories', 'the9-store' ); ?></span></summary>
+			<ul>
+				<?php foreach ( $categories as $category ) : $category_url = get_term_link( $category ); ?>
+					<?php if ( ! is_wp_error( $category_url ) ) : ?><li><a href="<?php echo esc_url( $category_url ); ?>"><?php echo esc_html( $category->name ); ?><span aria-hidden="true"><?php echo esc_html( $category->count ); ?></span></a></li><?php endif; ?>
+				<?php endforeach; ?>
+			</ul>
+		</details>
+		<?php
 	}
 
 
@@ -248,9 +280,9 @@ class The9_Store_Header_Layout{
 	*/
 	public function site_hero_sections(){
 		if( is_404() ) return;
-		if ( is_front_page() && is_active_sidebar( 'slider' ) ) : 
-		 dynamic_sidebar( 'slider' );
-		else: 
+		if ( is_front_page() ) {
+			return;
+		}
 		$header_image = get_header_image();
 		?>
         	<?php if( !empty( $header_image ) ) : ?>
@@ -266,7 +298,6 @@ class The9_Store_Header_Layout{
 		        </div>
 		    </div>
 		<?php
-		endif;
 	}
 	/**
 	 * Add Banner Title.

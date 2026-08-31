@@ -113,3 +113,46 @@ test('custom fork does not register the upstream Pro upsell', async () => {
   assert.doesNotMatch(customizer, /Upgrade to The9 Store Pro|Go PRO/);
   assert.doesNotMatch(bootstrap, /inc\/about-themes\.php/);
 });
+
+test('front page is theme-owned and uses live WordPress and WooCommerce data', async () => {
+  const template = await read('front-page.php');
+  const homepage = await read('inc/class/class-homepage.php');
+  const bootstrap = await read('functions.php');
+
+  assert.match(bootstrap, /inc\/class\/class-homepage\.php/);
+  assert.match(template, /The9_Store_Homepage::render\(\)/);
+  assert.match(homepage, /get_post_thumbnail_id/);
+  assert.match(homepage, /get_term_meta\( \$term->term_id, 'thumbnail_id'/);
+  assert.match(homepage, /wc_get_products/);
+  assert.match(homepage, /wc_get_product_ids_on_sale/);
+  assert.match(homepage, /wc_get_template_part\( 'content', 'product' \)/);
+  assert.doesNotMatch(homepage, /product_id\s*=>\s*\d+|Sherif Street|Omar Ibn|demo\.athemeart/);
+});
+
+test('demo-style header remains driven by assigned menus and real product categories', async () => {
+  const header = await read('inc/class/class-header.php');
+
+  assert.match(header, /get_product_search_form\(\)/);
+  assert.match(header, /taxonomy_exists\( 'product_cat' \)/);
+  assert.match(header, /'hide_empty'\s*=> true/);
+  assert.match(header, /get_term_link\( \$category \)/);
+  assert.match(header, /<details class="the9-store-category-nav">/);
+  assert.match(header, /is_front_page\(\)[\s\S]*return;/);
+  assert.match(header, /'fallback_cb'\s*=> false/);
+});
+
+test('homepage and shell styling inherits theme tokens and supports RTL and reduced motion', async () => {
+  const [styles, assets] = await Promise.all([
+    read('assets/css/shams-store.css'),
+    read('inc/theme-core.php'),
+  ]);
+
+  assert.match(styles, /\.the9-home-hero/);
+  assert.match(styles, /\.the9-home-categories__grid/);
+  assert.match(styles, /\[dir="rtl"\] \.the9-home-hero/);
+  assert.match(styles, /prefers-reduced-motion: reduce/);
+  assert.match(styles, /var\(--secondary-color\)/);
+  assert.doesNotMatch(styles, /font-family:\s*(?:Jost|Poppins|Arial)/i);
+  assert.match(assets, /wp_style_is\( 'the9-store-woocommerce-style', 'enqueued' \)/);
+  assert.match(assets, /the9_store_shams_styles', 30/);
+});

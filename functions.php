@@ -29,6 +29,9 @@ require get_template_directory() . '/inc/class/class-body.php';
  */
 require get_template_directory() . '/inc/class/class-footer.php';
 
+/** Theme-owned WooCommerce homepage sections. */
+require get_template_directory() . '/inc/class/class-homepage.php';
+
 /**
  * Implement the Custom Header feature.
  */
