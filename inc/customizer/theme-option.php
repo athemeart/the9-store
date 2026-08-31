@@ -144,7 +144,7 @@ $wp_customize->add_control( '__primary_color',
 	array(
 	'label'    	   => esc_html__( 'Primary Color Scheme:', 'the9-store' ),
 	'section'  	   => 'styling_section_settings',
-	'description'  => esc_html__( 'The theme comes with unlimited color schemes for your theme\'s styling. upgrade pro for color options & features', 'the9-store' ),
+	'description'  => esc_html__( 'Used for supporting text and neutral interface elements.', 'the9-store' ),
 	'type'     => 'color',
 	'priority' => 120,
 	)
@@ -161,7 +161,7 @@ $wp_customize->add_control( '__secondary_color',
 	array(
 	'label'    	   => esc_html__( 'Secondary Color Scheme:', 'the9-store' ),
 	'section'  	   => 'styling_section_settings',
-	'description'  => esc_html__( 'The theme comes with unlimited color schemes for your theme\'s styling. upgrade pro for color options & features', 'the9-store' ),
+	'description'  => esc_html__( 'Used for links, buttons, active navigation and highlights.', 'the9-store' ),
 	'type'     => 'color',
 	'priority' => 120,
 	)

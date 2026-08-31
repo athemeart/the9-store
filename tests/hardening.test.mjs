@@ -113,3 +113,41 @@ test('custom fork does not register the upstream Pro upsell', async () => {
   assert.doesNotMatch(customizer, /Upgrade to The9 Store Pro|Go PRO/);
   assert.doesNotMatch(bootstrap, /inc\/about-themes\.php/);
 });
+
+test('header commerce tools use live WooCommerce data and accessible controls', async () => {
+  const header = await read('inc/class/class-header.php');
+
+  assert.match(header, /get_product_search_form\(\)/);
+  assert.match(header, /private function product_category_navigation\(\)/);
+  assert.match(header, /'taxonomy'\s*=>\s*'product_cat'/);
+  assert.match(header, /get_term_link\( \$category \)/);
+  assert.match(header, /the9-store-account-link/);
+  assert.match(header, /aria-label=/);
+});
+
+test('structured footer is the only footer content source', async () => {
+  const footer = await read('inc/class/class-footer.php');
+
+  assert.doesNotMatch(footer, /dynamic_sidebar\(\s*'footer-1'/);
+  assert.match(footer, /esc_attr__\( 'Social media', 'the9-store' \)/);
+  assert.match(footer, /noopener noreferrer/);
+});
+
+test('Shams design layer loads after theme and WooCommerce styles', async () => {
+  const assets = await read('inc/theme-core.php');
+
+  assert.match(assets, /function the9_store_shams_styles\(\)/);
+  assert.match(assets, /wp_style_is\( 'the9-store-woocommerce-style', 'enqueued' \)/);
+  assert.match(assets, /add_action\( 'wp_enqueue_scripts', 'the9_store_shams_styles', 30 \)/);
+});
+
+test('shared design layer is tokenized, responsive, RTL-safe and motion-safe', async () => {
+  const styles = await read('assets/css/shams-store.css');
+
+  assert.match(styles, /--shams-accent:/);
+  assert.match(styles, /margin-inline:/);
+  assert.match(styles, /inset-inline:/);
+  assert.match(styles, /@media \(max-width: 767px\)/);
+  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
+  assert.doesNotMatch(styles, /Sherif Street|Omar Ibn|022390|010233/);
+});

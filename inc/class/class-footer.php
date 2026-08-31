@@ -48,15 +48,6 @@ class the9_store_Footer_Layout{
 	*/
 	function site_footer_widgets(){
 		$this->site_footer_content();
-		if ( is_active_sidebar( 'footer-1' ) ) { ?>
-         <div class="footer_widget_wrap">
-         <div class="container">
-            <div class="row the9-store-flex">
-                <?php dynamic_sidebar( 'footer-1' ); ?>
-            </div>
-         </div>  
-         </div>
-		<?php }
 	}
 
 	/** Render WordPress-owned footer data and assigned menus. */
@@ -73,7 +64,7 @@ class the9_store_Footer_Layout{
 		?>
 		<div class="the9-store-footer-main">
 			<div class="container">
-				<div class="the9-store-footer-content">
+				<div class="the9-store-footer-content the9-store-footer-grid">
 					<?php if ( $has_brand ) : ?>
 						<section class="the9-store-footer-column the9-store-footer-brand" aria-label="<?php esc_attr_e( 'Store information', 'the9-store' ); ?>">
 							<?php if ( has_custom_logo() ) { the_custom_logo(); } ?>
@@ -138,17 +129,17 @@ class the9_store_Footer_Layout{
 				$html .= '</div>';
 			$html .= '<div class="col-6">';
 
-			$html .= '<ul class="social-links text-end d-flex justify-content-end align-items-center">';
+			$html .= '<ul class="social-links text-end d-flex justify-content-end align-items-center" aria-label="' . esc_attr__( 'Social media', 'the9-store' ) . '">';
 
-			if( the9_store_get_option('__fb_pro_link') != "" ): 
-				$html .= '<li class="social-item-facebook"><a href="'.esc_url( the9_store_get_option('__fb_pro_link') ).'" target="_blank" rel="nofollow"><i class="icofont-facebook"></i></a></li>';				
+			if( the9_store_get_option('__fb_pro_link') != "" ):
+				$html .= '<li class="social-item-facebook"><a href="'.esc_url( the9_store_get_option('__fb_pro_link') ).'" target="_blank" rel="nofollow noopener noreferrer" aria-label="Facebook"><i class="icofont-facebook" aria-hidden="true"></i></a></li>';
 			endif;
 
 			if( the9_store_get_option('__tw_pro_link') != "" ): 
-				$html .= '<li class="social-item-twitter"><a href="'.esc_url( the9_store_get_option('__tw_pro_link') ).'" target="_blank" rel="nofollow"><i class="icofont-twitter"></i></a></li>';
+				$html .= '<li class="social-item-twitter"><a href="'.esc_url( the9_store_get_option('__tw_pro_link') ).'" target="_blank" rel="nofollow noopener noreferrer" aria-label="X / Twitter"><i class="icofont-twitter" aria-hidden="true"></i></a></li>';
 			endif;
 			if( the9_store_get_option('__you_pro_link') != "" ): 
-				$html .= '<li class="social-item-youtube"><a href="'.esc_url( the9_store_get_option('__you_pro_link') ).'" target="_blank" rel="nofollow"><i class="icofont-youtube"></i></a></li>';
+				$html .= '<li class="social-item-youtube"><a href="'.esc_url( the9_store_get_option('__you_pro_link') ).'" target="_blank" rel="nofollow noopener noreferrer" aria-label="YouTube"><i class="icofont-youtube" aria-hidden="true"></i></a></li>';
 			 endif;
 					
 			$html .= '</ul>';
