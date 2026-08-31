@@ -12,7 +12,6 @@ final class The9_Store_Homepage {
 	public static function render() {
 		self::hero();
 		if ( ! class_exists( 'WooCommerce' ) ) {
-			self::page_content();
 			return;
 		}
 
@@ -20,7 +19,6 @@ final class The9_Store_Homepage {
 		self::product_section( __( 'Featured Products', 'the9-store' ), self::featured_products(), 'featured' );
 		self::product_section( __( 'Today’s Deals', 'the9-store' ), self::sale_products(), 'sale' );
 		self::product_section( __( 'New Arrivals', 'the9-store' ), self::latest_products(), 'latest' );
-		self::page_content();
 	}
 
 	/** Use the front-page media and copy, with existing catalog media as a safe fallback. */
@@ -135,17 +133,4 @@ final class The9_Store_Homepage {
 		return wc_get_products( array( 'status' => 'publish', 'limit' => 8, 'orderby' => 'date', 'order' => 'DESC' ) );
 	}
 
-	/** Keep genuine editor content, while stale plugin-only shortcodes remain silent. */
-	private static function page_content() {
-		if ( 'page' !== get_option( 'show_on_front' ) || ! have_posts() ) {
-			return;
-		}
-		while ( have_posts() ) {
-			the_post();
-			$content = get_the_content();
-			if ( trim( wp_strip_all_tags( strip_shortcodes( $content ) ) ) ) {
-				echo '<section class="the9-home-section the9-home-editor-content"><div class="container">' . wp_kses_post( apply_filters( 'the_content', $content ) ) . '</div></section>';
-			}
-		}
-	}
 }

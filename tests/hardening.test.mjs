@@ -126,6 +126,7 @@ test('front page is theme-owned and uses live WordPress and WooCommerce data', a
   assert.match(homepage, /wc_get_products/);
   assert.match(homepage, /wc_get_product_ids_on_sale/);
   assert.match(homepage, /wc_get_template_part\( 'content', 'product' \)/);
+  assert.doesNotMatch(homepage, /the_content|get_the_content|do_shortcode/);
   assert.doesNotMatch(homepage, /product_id\s*=>\s*\d+|Sherif Street|Omar Ibn|demo\.athemeart/);
 });
 
