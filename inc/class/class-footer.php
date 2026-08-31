@@ -73,21 +73,21 @@ class the9_store_Footer_Layout{
 					<?php endif; ?>
 
 					<?php if ( $has_shop ) : ?>
-						<section class="the9-store-footer-column the9-store-footer-menu-column">
+						<section class="the9-store-footer-column">
 							<h2><?php esc_html_e( 'Shop', 'the9-store' ); ?></h2>
-							<?php wp_nav_menu( array( 'theme_location' => 'footer-shop', 'container' => false, 'menu_class' => 'the9-store-footer-menu', 'depth' => 2, 'fallback_cb' => false ) ); ?>
+							<?php wp_nav_menu( array( 'theme_location' => 'footer-shop', 'container' => false, 'depth' => 2, 'fallback_cb' => false ) ); ?>
 						</section>
 					<?php endif; ?>
 
 					<?php if ( $has_info ) : ?>
-						<section class="the9-store-footer-column the9-store-footer-menu-column">
+						<section class="the9-store-footer-column">
 							<h2><?php esc_html_e( 'Information', 'the9-store' ); ?></h2>
-							<?php wp_nav_menu( array( 'theme_location' => 'footer-information', 'container' => false, 'menu_class' => 'the9-store-footer-menu', 'depth' => 2, 'fallback_cb' => false ) ); ?>
+							<?php wp_nav_menu( array( 'theme_location' => 'footer-information', 'container' => false, 'depth' => 2, 'fallback_cb' => false ) ); ?>
 						</section>
 					<?php endif; ?>
 
 					<?php if ( $branches ) : ?>
-						<section class="the9-store-footer-column the9-store-footer-branches">
+						<section class="the9-store-footer-column">
 							<h2><?php esc_html_e( 'Our stores', 'the9-store' ); ?></h2>
 							<?php foreach ( $branches as $branch ) : ?>
 								<div class="the9-store-footer-branch">

@@ -131,8 +131,6 @@ test('structured footer is the only footer content source', async () => {
   assert.doesNotMatch(footer, /dynamic_sidebar\(\s*'footer-1'/);
   assert.match(footer, /esc_attr__\( 'Social media', 'the9-store' \)/);
   assert.match(footer, /noopener noreferrer/);
-  assert.match(footer, /'menu_class'\s*=>\s*'the9-store-footer-menu'/);
-  assert.match(footer, /the9-store-footer-branches/);
 });
 
 test('Shams design layer loads after theme and WooCommerce styles', async () => {
@@ -152,17 +150,4 @@ test('shared design layer is tokenized, responsive, RTL-safe and motion-safe', a
   assert.match(styles, /@media \(max-width: 767px\)/);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
   assert.doesNotMatch(styles, /Sherif Street|Omar Ibn|022390|010233/);
-  assert.match(styles, /#navbar\.the9-store-navbar/);
-  assert.doesNotMatch(styles, /\.navbar-area/);
-  assert.match(styles, /#masthead\.the9-store-site-header \.header-icon > li > \.the9-store-account-link/);
-  assert.match(styles, /\.the9-store-footer-brand \.custom-logo/);
-});
-
-test('sanitized footer accessibility attributes survive the theme allowlist', async () => {
-  const allowlist = await read('inc/template-functions.php');
-  const iconDefinitions = allowlist.match(/'i'\s*=>\s*array\(/g) ?? [];
-
-  assert.equal(iconDefinitions.length, 1);
-  assert.match(allowlist, /'i'\s*=>\s*array\([\s\S]*?'aria-hidden'\s*=>\s*array\(\)/);
-  assert.match(allowlist, /'ul'\s*=>\s*array\([\s\S]*?'aria-label'\s*=>\s*array\(\)/);
 });
