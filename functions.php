@@ -11,9 +11,6 @@
  */
 require get_template_directory() . '/inc/theme-core.php';
 
-/** Shams-owned site data migrated from retired presentation plugins. */
-require get_template_directory() . '/inc/shams-store-data.php';
-
 /**
  * Implement the Custom Header feature.
  */
@@ -60,3 +57,5 @@ require get_template_directory() . '/inc/customizer/customizer.php';
 if ( class_exists( 'WooCommerce' ) ) {
     require get_template_directory() . '/inc/woocommerce.php';
 }
+
+require get_template_directory() . '/inc/about-themes.php';

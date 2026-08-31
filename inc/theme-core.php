@@ -49,10 +49,8 @@ if ( ! function_exists( 'the9_store_setup' ) ) :
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
-			'menu-1'             => esc_html__( 'Primary Menu', 'the9-store' ),
-			'topbar'             => esc_html__( 'Top Bar Menu', 'the9-store' ),
-			'footer-shop'        => esc_html__( 'Footer Shop Menu', 'the9-store' ),
-			'footer-information' => esc_html__( 'Footer Information Menu', 'the9-store' ),
+			'menu-1' => esc_html__( 'Primary', 'the9-store' ),
+			'topbar' => esc_html__( 'Topbar Menu', 'the9-store' ),
 		) );
 
 		/*
@@ -190,7 +188,6 @@ function the9_store_scripts() {
 	wp_enqueue_style( 'the9-store-common', get_theme_file_uri( '/assets/css/the9-store-common.css' ), array(), '1.0.0' );
 	wp_enqueue_style( 'the9-store-style', get_stylesheet_uri(), array(), _SOPER_VERSION );
 	wp_style_add_data( 'the9-store-style', 'rtl', 'replace' );
-	wp_enqueue_style( 'the9-store-shams', get_theme_file_uri( '/assets/css/shams-store.css' ), array( 'the9-store-style' ), _SOPER_VERSION );
 	
 	$custom_css = ':root {--primary-color:'.esc_attr( get_theme_mod('__primary_color','#6c757d') ).'; --secondary-color: '.esc_attr( get_theme_mod('__secondary_color','#4E53C8') ).'; --nav-h-color:'.esc_attr( get_theme_mod('__secondary_color','#4E53C8') ).'}';
 	wp_add_inline_style( 'the9-store-style', $custom_css );

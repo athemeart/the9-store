@@ -40,16 +40,9 @@ class The9_Store_Header_Layout{
 			
 		echo '<div class="top-bar-wrap">
 		<div class="container"><div class="left-menu">';
-			if ( the9_store_get_option( '__dialogue' ) ) :
-				$contact_url = get_theme_mod( 'header_contact_url', '' );
-				echo '<span class="dialogue">';
-				if ( $contact_url ) {
-					echo '<a href="' . esc_url( $contact_url ) . '">' . esc_html( the9_store_get_option( '__dialogue' ) ) . '</a>';
-				} else {
-					echo esc_html( the9_store_get_option( '__dialogue' ) );
-				}
-				echo '</span>';
-			endif;
+		if( the9_store_get_option('__dialogue') ) : 
+			echo '<span class="dialogue">'.esc_html( the9_store_get_option('__dialogue') ).'</span>';
+		endif;
 		echo '</div><div class="right-menu"><div class="top-bar-menu">';
 			wp_nav_menu( array(
 				'theme_location'    => 'topbar',
@@ -57,7 +50,7 @@ class The9_Store_Header_Layout{
 				'menu_class'  		=> 'menu',
 				'menu_id'  			=> 'menu-store',
 				'container'			=> 'ul',
-					'fallback_cb'       => false,
+				'fallback_cb'       => 'the9_store_navwalker::fallback',
 			) );
 		echo '</div>';
 		echo '</div></div>
@@ -117,11 +110,10 @@ class The9_Store_Header_Layout{
 				<ul class="header-icon d-flex justify-content-end">
 					<li>
 
-					<?php $account_url = wc_get_page_permalink( 'myaccount' ); ?>
-					<?php if ( is_user_logged_in() ) { ?>
-					<a class="gs-tooltip-act" href="<?php echo esc_url( $account_url ); ?>"><i class="icofont-user-alt-4"></i></a><span class="icon_txt"><span class="label"><?php echo esc_html__('My','the9-store');?></span> <span class="class2"><?php echo esc_html__('Account','the9-store');?></span></span>
-					<?php } else { ?>
-					<a class="gs-tooltip-act" href="<?php echo esc_url( $account_url ); ?>"><i class="icofont-user-alt-4"></i></a><span class="icon_txt"><span class="label"><?php echo esc_html__('Login','the9-store');?></span> <span class="class2"><?php echo esc_html__('Reg.','the9-store');?></span></span>
+				<?php if ( is_user_logged_in() ) { ?>
+				<a class="gs-tooltip-act" href="<?php echo esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) ); ?>"><i class="icofont-user-alt-4"></i></a><span class="icon_txt"><span class="label"><?php echo esc_html__('My','the9-store');?></span> <span class="class2"><?php echo esc_html__('Account','the9-store');?></span></span>
+				<?php } else { ?>
+				<a class="gs-tooltip-act" href="<?php echo esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) ); ?>"><i class="icofont-user-alt-4"></i></a><span class="icon_txt"><span class="label"><?php echo esc_html__('Login','the9-store');?></span> <span class="class2"><?php echo esc_html__('Reg.','the9-store');?></span></span>
 				<?php } ?>
 				<?php if ( is_user_logged_in() ) { ?>
 				<ul class="joyas-myaccount-endpoint">
@@ -198,7 +190,7 @@ class The9_Store_Header_Layout{
 						'menu_class'  		=> 'the9_store-main-menu navigation-menu',
 						'container'			=> 'ul',
 						'walker' 			=> new the9_store_navwalker(),
-					        'fallback_cb'       => false,
+				        'fallback_cb'       => 'the9_store_navwalker::fallback_2',
 					) );
 				?>
 				</div>

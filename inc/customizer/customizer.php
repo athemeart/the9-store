@@ -33,6 +33,24 @@ function the9_store_customize_register( $wp_customize ) {
 	/*theme option panel details*/
 	load_template( get_template_directory() . '/inc/customizer/theme-option.php', false ) ;
 	
+	// Register custom section types.
+	$wp_customize->register_section_type( 'the9_store_Customize_Section_Upsell' );
+
+	// Register sections.
+	$wp_customize->add_section(
+		new the9_store_Customize_Section_Upsell(
+			$wp_customize,
+			'theme_upsell',
+			array(
+				'title'    => esc_html__( 'Upgrade to The9 Store Pro!', 'the9-store' ),
+				'pro_text' => esc_html__( 'Go PRO', 'the9-store' ),
+				'pro_url'  => 'https://athemeart.com/downloads/the9-store-pro/',
+				'priority'  => 1,
+			)
+		)
+	);
+	
+	
 }
 add_action( 'customize_register', 'the9_store_customize_register' );
 
