@@ -2553,8 +2553,8 @@ a.wc-block-cart__submit-button{
 }
 @media only screen and (max-width: 680px) {
 	.top-form-minicart{
-		width: 220px!important;
-		line-height:60px!important;
+		width: auto;
+		line-height: normal;
 	}
 	#masthead{
 		text-align: center;

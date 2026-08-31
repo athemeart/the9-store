@@ -126,12 +126,6 @@ function the9_store_alowed_tags() {
 			'style' => array(),
 			'id' => array(),
 		),
-		'i' => array(
-			'aria-hidden' => array(),
-			'class' => array(),
-			'style' => array(),
-			'id' => array(),
-		),
 		'img' => array(
 			'alt'    => array(),
 			'class'  => array(),
@@ -145,6 +139,7 @@ function the9_store_alowed_tags() {
 			'id' => array(),
 		),
 		'i' => array(
+			'aria-hidden' => array(),
 			'class' => array(),
 			'style' => array(),
 			'id' => array(),
@@ -171,6 +166,7 @@ function the9_store_alowed_tags() {
 		'strike' => array(),
 		'strong' => array(),
 		'ul' => array(
+			'aria-label' => array(),
 			'class' => array(),
 			'style' => array(),
 			'id' => array(),

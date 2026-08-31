@@ -91,7 +91,7 @@ class The9_Store_Header_Layout{
 	*/
 	function site_header_layout(){
 		?>
-		<header id="masthead" class="site-header style_1">
+		<header id="masthead" class="site-header style_1 the9-store-site-header">
 		<div class="container">
 			<div class="row align-items-center">
 				<div class="col-xl-3 col-lg-3 col-sm-4 col-12">
@@ -183,7 +183,7 @@ class The9_Store_Header_Layout{
 	public function get_site_navigation (){
 		
 		?>
-		<nav id="navbar" class="navbar-fill">
+		<nav id="navbar" class="navbar-fill the9-store-navbar">
 			<div class="container d-flex align-items-center">
 					<button class="the9-store-responsive-navbar" type="button" aria-controls="aside-nav-wrapper" aria-expanded="false" aria-label="<?php esc_attr_e( 'Open menu', 'the9-store' ); ?>"><i class="bi bi-list" aria-hidden="true"></i></button>
 					<?php $this->product_category_navigation(); ?>
@@ -234,7 +234,7 @@ class The9_Store_Header_Layout{
 	function header_mini_cart() {
 		if ( class_exists( 'WooCommerce' ) ):
 	?>
-    <div class="top-form-minicart box-icon-cart">
+		<div class="top-form-minicart box-icon-cart the9-store-mini-cart">
 		<i class="icofont-cart"></i>
 		<?php the9_store_woocommerce_cart_link();
 			$instance = array(
