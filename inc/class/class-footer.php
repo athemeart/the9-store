@@ -48,15 +48,6 @@ class the9_store_Footer_Layout{
 	*/
 	function site_footer_widgets(){
 		$this->site_footer_content();
-		if ( is_active_sidebar( 'footer-1' ) ) { ?>
-         <div class="footer_widget_wrap">
-         <div class="container">
-            <div class="row the9-store-flex">
-                <?php dynamic_sidebar( 'footer-1' ); ?>
-            </div>
-         </div>  
-         </div>
-		<?php }
 	}
 
 	/** Render WordPress-owned footer data and assigned menus. */
