@@ -190,6 +190,7 @@ function the9_store_scripts() {
 	wp_enqueue_style( 'the9-store-common', get_theme_file_uri( '/assets/css/the9-store-common.css' ), array(), '1.0.0' );
 	wp_enqueue_style( 'the9-store-style', get_stylesheet_uri(), array(), _SOPER_VERSION );
 	wp_style_add_data( 'the9-store-style', 'rtl', 'replace' );
+	wp_enqueue_style( 'the9-store-shams', get_theme_file_uri( '/assets/css/shams-store.css' ), array( 'the9-store-style' ), _SOPER_VERSION );
 	
 	$custom_css = ':root {--primary-color:'.esc_attr( get_theme_mod('__primary_color','#6c757d') ).'; --secondary-color: '.esc_attr( get_theme_mod('__secondary_color','#4E53C8') ).'; --nav-h-color:'.esc_attr( get_theme_mod('__secondary_color','#4E53C8') ).'}';
 	wp_add_inline_style( 'the9-store-style', $custom_css );
@@ -209,16 +210,6 @@ function the9_store_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'the9_store_scripts' );
-
-/** Keep Shams theme extensions after the base and optional WooCommerce styles. */
-function the9_store_shams_styles() {
-	$dependencies = array( 'the9-store-style' );
-	if ( wp_style_is( 'the9-store-woocommerce-style', 'enqueued' ) ) {
-		$dependencies[] = 'the9-store-woocommerce-style';
-	}
-	wp_enqueue_style( 'the9-store-shams', get_theme_file_uri( '/assets/css/shams-store.css' ), $dependencies, _SOPER_VERSION );
-}
-add_action( 'wp_enqueue_scripts', 'the9_store_shams_styles', 30 );
 
 /**
  * Set up the WordPress core custom header feature.
