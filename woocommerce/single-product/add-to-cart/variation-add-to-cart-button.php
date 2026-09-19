@@ -2,9 +2,9 @@
 /**
  * Single variation cart button
  *
- * @see https://docs.woocommerce.com/document/template-structure/
+ * @see https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 7.4.0
+ * @version 10.5.2
  */
 
 defined( 'ABSPATH' ) || exit;

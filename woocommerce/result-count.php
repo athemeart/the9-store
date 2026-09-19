@@ -14,9 +14,8 @@ if ( is_single() || ! have_posts() ) {
     return;
 }
 
-$products_per_page = get_theme_mod( 'the9_store_posts_per_page', '12' );
-
-$num_prod = ( isset( $_GET['products-per-page'] ) ) ? sanitize_text_field( wp_unslash( $_GET['products-per-page'] ) ) : $products_per_page;
+$products_per_page = max( 1, absint( get_theme_mod( 'the9_store_posts_per_page', 12 ) ) );
+$num_prod          = the9_store_products_per_page_choice();
 
 $num_prod_x1 = $products_per_page;
 $num_prod_x2 = $num_prod_x1 * 2;

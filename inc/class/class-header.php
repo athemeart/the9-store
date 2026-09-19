@@ -180,9 +180,9 @@ class The9_Store_Header_Layout{
 		?>
 		<nav id="navbar" class="navbar-fill">
 			<div class="container d-flex align-items-center">
-				<button class="the9-store-responsive-navbar"><i class="bi bi-list"></i></button>
-				<div id="aside-nav-wrapper" class="nav-wrap flex-grow-1">
-				<button class="the9-store-navbar-close"><i class="bi bi-x-lg"></i></button>	
+					<button class="the9-store-responsive-navbar" type="button" aria-controls="aside-nav-wrapper" aria-expanded="false" aria-label="<?php esc_attr_e( 'Open menu', 'the9-store' ); ?>"><i class="bi bi-list" aria-hidden="true"></i></button>
+					<div id="aside-nav-wrapper" class="nav-wrap flex-grow-1">
+					<button class="the9-store-navbar-close" type="button" aria-label="<?php esc_attr_e( 'Close menu', 'the9-store' ); ?>"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
 				<?php
 					wp_nav_menu( array(
 						'theme_location'    => 'menu-1',

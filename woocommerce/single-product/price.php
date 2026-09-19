@@ -12,7 +12,7 @@
  *
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 11.0.0
+ * @version 3.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,7 +23,7 @@ global $product;
 
 ?>
 <div class="d-flex align-items-center price-wrap">
-<p class="price"><?php echo $product->get_price_html(); ?></p>
+<p class="price"><?php echo wp_kses_post( $product->get_price_html() ); ?></p>
 
 <?php
    // Check if the product is variable.
@@ -31,18 +31,21 @@ global $product;
         // Add a container to dynamically update stock status.
         echo '<div id="variable-stock-status" class="stock-status-container"></div>';
         ?>
-        <script type="text/javascript">
-            jQuery(document).ready(function($) {
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				const inStockLabel = <?php echo wp_json_encode( esc_html__( 'In Stock', 'the9-store' ) ); ?>;
+				const outOfStockLabel = <?php echo wp_json_encode( esc_html__( 'Out of Stock', 'the9-store' ) ); ?>;
+
                 // Listen for changes on the variation dropdown.
                 $('form.variations_form').on('show_variation', function(event, variation) {
                     let stockStatus = '';
 
                     if (variation.is_in_stock) {
                         if (variation.max_qty > 0) {
-                            stockStatus = '<span class="stock-status in-stock">' + variation.max_qty + ''.esc_html__( 'In Stock', 'the9-store' ).'</span>';
+							stockStatus = '<span class="stock-status in-stock">' + variation.max_qty + ' ' + inStockLabel + '</span>';
                         }
                     } else {
-                        stockStatus = '<span class="stock-status out-of-stock">'.esc_html__( 'Out of Stock', 'the9-store' ).'</span>';
+						stockStatus = '<span class="stock-status out-of-stock">' + outOfStockLabel + '</span>';
                     }
 
                     $('#variable-stock-status').html(stockStatus);
@@ -69,4 +72,3 @@ global $product;
     }
 ?>
 </div>
-

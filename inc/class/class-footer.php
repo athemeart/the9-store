@@ -133,9 +133,7 @@ class the9_store_Footer_Layout{
 	*/
 	public function site_footer_back_top (){
 		
-		$html = '<a id="backToTop" class="ui-to-top active"><i class="icofont-bubble-up"></i></a>';
-						
-		$html = '<a id="backToTop" class="ui-to-top active"><i class="bi bi-arrow-up-square-fill"></i></a>';				
+			$html = '<a id="backToTop" class="ui-to-top active" href="#page" aria-label="' . esc_attr__( 'Back to top', 'the9-store' ) . '"><i class="bi bi-arrow-up-square-fill" aria-hidden="true"></i></a>';
 		$html = apply_filters( 'the9_store_site_footer_back_top_filter',$html);		
 				
 		echo wp_kses( $html, $this->alowed_tags() );

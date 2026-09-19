@@ -10,9 +10,9 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://docs.woocommerce.com/document/template-structure/
+ * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 11.6.0
+ * @version 3.6.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,7 +36,7 @@ if ( $rating_count > 0 ) : ?>
 
 <div class="woocommerce-product-rating">
 			<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-echo wp_kses( wc_get_rating_html( $average, $rating_count ), the9_store_allowed_tags() ); ?>
+echo wp_kses( wc_get_rating_html( $average, $rating_count ), the9_store_alowed_tags() ); ?>
 			<?php
 
 			if ( $review_count > 0 ) {

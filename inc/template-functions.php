@@ -47,6 +47,7 @@ function the9_store_alowed_tags() {
 	
 	$allowed_tags = array(
 		'a' => array(
+			'aria-label' => array(),
 			'class' => array(),
 			'href'  => array(),
 			'rel'   => array(),
@@ -126,6 +127,7 @@ function the9_store_alowed_tags() {
 			'id' => array(),
 		),
 		'i' => array(
+			'aria-hidden' => array(),
 			'class' => array(),
 			'style' => array(),
 			'id' => array(),
